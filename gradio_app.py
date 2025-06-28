@@ -152,4 +152,5 @@ with gr.Blocks(css=css) as demo:
     submit.click(wrapped_process, inputs=[mic, img, lang, txt], outputs=[out1, out2, out3, out4])
 
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(server_name="0.0.0.0", server_port=10000)
+
