@@ -22,3 +22,4 @@ Thumbs.db
 # Gradio artifacts
 gradio_cached_examples/
 ".env" 
+".env" 
