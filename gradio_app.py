@@ -114,6 +114,24 @@ with gr.Blocks(css=css) as demo:
 
     submit.click(wrapped_process, inputs=[mic, img, lang, txt], outputs=[out1, out2, out3, out4])
 
+    # ✅ JS to auto-play voice response in browser after generation
+    gr.HTML("""
+    <script>
+    function autoplayAudio() {
+        const audioEl = document.querySelector('audio');
+        if (audioEl) {
+            audioEl.play().catch(e => {
+                console.warn("Autoplay blocked by browser:", e);
+            });
+        }
+    }
+    window.addEventListener("message", function(event) {
+        if (event.data?.type === "update" && event.data?.output_index === 2) {
+            setTimeout(autoplayAudio, 500);
+        }
+    });
+    </script>
+    """)
+
 if __name__ == "__main__":
     demo.launch(server_name="0.0.0.0", server_port=10000)
-

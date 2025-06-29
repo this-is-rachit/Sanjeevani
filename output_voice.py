@@ -1,7 +1,5 @@
 import os
 import requests
-import platform
-import subprocess
 from murf import Murf
 
 VOICE_MAP = {
@@ -45,16 +43,4 @@ def text_to_speech_with_murf(text: str, filepath: str, voice_id: str):
     with open(filepath, "wb") as f:
         f.write(audio_data)
 
-    os_name = platform.system()
-    try:
-        if os_name == "Darwin":
-            subprocess.run(["afplay", filepath], check=False)
-        elif os_name == "Windows":
-            subprocess.run([
-                "powershell", "-c",
-                f"(New-Object Media.SoundPlayer '{filepath}').PlaySync()"
-            ], check=False)
-        else:
-            subprocess.run(["aplay", filepath], check=False)
-    except Exception as e:
-        print(f"[Murf] Playback error: {e}")
+    # ✅ No server-side playback (Render-compatible)
